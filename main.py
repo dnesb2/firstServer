@@ -15,7 +15,7 @@ from google import genai
 #client = genai.Client(api_key=api_key_string)
 finalStr = ""
 with open("private.txt", "r") as f:
-    for l in f:
+    for l in f.read():
         if l == '+':
             finalStr = finalStr + '.'
             continue
