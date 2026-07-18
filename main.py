@@ -34,6 +34,17 @@ async def execute_script(request: Request):
     
     return result
 
+@app.post("/executeW")
+async def execute_script(request: Request):
+    data = await request.json()
+
+    print(data)
+    
+    # Put your script's execution logic here
+    result = {"message": "Success", "received": data}
+    
+    return result
+
 
 # using POST for uploading data (pic) which of course you place to send to AI
 @app.post("/executeR")
