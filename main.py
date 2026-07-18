@@ -14,7 +14,7 @@ from google import genai
 # # Explicitly pass the key to the client
 #client = genai.Client(api_key=api_key_string)
 finalStr = ""
-with open("./private.tlock", "w") as f:
+with open("private.txt", "r") as f:
     for(letter in l):
         if(l == ' '):
             finalStr = finalStr + '.'
