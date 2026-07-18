@@ -35,7 +35,21 @@ async def execute_script(request: Request):
     return result
 
 @app.post("/executeW")
-async def execute_script(request: Request):
+async def execute_script(file: UploadFile = File(...), request: Request):
+    global client
+
+    data = await request.json()
+    print(data)
+    # 1. Name where you want to save the incoming image on Railway
+    server_filename = f"received_{file.filename}"
+    
+    # 2. Save the incoming file stream to the server's disk
+    with open(server_filename, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    # 3. Your processing logic goes here
+    # (e.g., edit the image, analyze it, etc.)
+    uploaded_File = client.files.upload(file=server_filename)):
     data = await request.json() 
 
     print(data)
