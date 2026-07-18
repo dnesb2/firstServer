@@ -15,7 +15,7 @@ async def execute_script(request: Request):
 
 
 # using POST for uploading data (pic) which of course you place to send to AI
-@app.post("/execute_R")
+@app.post("/executeR")
 async def execute_script(file: UploadFile = File(...)):
     # 1. Name where you want to save the incoming image on Railway
     server_filename = f"received_{file.filename}"
