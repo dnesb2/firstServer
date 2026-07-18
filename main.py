@@ -16,7 +16,7 @@ from google import genai
 finalStr = ""
 with open("private.txt", "r") as f:
     for l in f:
-        if l == ' ':
+        if l == '+':
             finalStr = finalStr + '.'
             continue
         else:
