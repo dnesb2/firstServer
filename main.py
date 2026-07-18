@@ -21,8 +21,8 @@ async def execute_script(file: UploadFile = File(...)):
     server_filename = f"received_{file.filename}"
     
     # 2. Save the incoming file stream to the server's disk
-    # with open(server_filename, "wb") as buffer:
-    #     shutil.copyfileobj(file.file, buffer)
+    with open(server_filename, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
         
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
