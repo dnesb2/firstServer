@@ -4,7 +4,16 @@ import shutil
 import os
 from google import genai
 
-client = genai.Client(api_key="AQ.Ab8RN6JH5ottS1H_QVSQZNV5_wU0ezTAK6Uo_R5MEfZbJ2cY-Q")
+
+# Fetch the key from Railway's environment variables
+api_key_string = os.getenv("GEMINI_API_KEY")
+
+if not api_key_string:
+    raise ValueError("GEMINI_API_KEY environment variable is missing on Railway!")
+
+# Explicitly pass the key to the client
+client = genai.Client(api_key=api_key_string)
+# client = genai.Client(api_key="AQ.Ab8RN6JH5ottS1H_QVSQZNV5_wU0ezTAK6Uo_R5MEfZbJ2cY-Q")
 app = FastAPI()
 
 @app.post("/execute")
