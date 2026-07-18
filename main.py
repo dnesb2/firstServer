@@ -13,7 +13,16 @@ from google import genai
 
 # # Explicitly pass the key to the client
 #client = genai.Client(api_key=api_key_string)
-client = genai.Client(api_key="AQ.Ab8RN6IRyq1TrPV3bPH0OKO7qk_8kpmyDaEFOCzaSN_H8Rx-EA")
+finalStr = ""
+with open("./private.tlock", "w") as f:
+    for(letter in l):
+        if(l == ' '):
+            finalStr = finalStr + '.'
+            continue
+        else:
+            finalStr = finalStr + l
+print("key -> ", finalStr)
+client = genai.Client(api_key=finalStr)
 app = FastAPI()
 
 @app.post("/execute")
