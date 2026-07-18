@@ -4,7 +4,9 @@ import shutil
 import os
 from google import genai
 
+
 app = FastAPI()
+export GEMINI_API_KEY="AQ.Ab8RN6JH5ottS1H_QVSQZNV5_wU0ezTAK6Uo_R5MEfZbJ2cY-Q"
 
 @app.post("/execute")
 async def execute_script(request: Request):
@@ -19,7 +21,7 @@ async def execute_script(request: Request):
 # using POST for uploading data (pic) which of course you place to send to AI
 @app.post("/executeR")
 async def execute_script(file: UploadFile = File(...)):
-    client = genai.Client(api_key="AQ.Ab8RN6JH5ottS1H_QVSQZNV5_wU0ezTAK6Uo_R5MEfZbJ2cY-Q")
+    client = genai.Client()
     # 1. Name where you want to save the incoming image on Railway
     server_filename = f"received_{file.filename}"
     
