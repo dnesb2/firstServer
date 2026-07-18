@@ -36,7 +36,7 @@ async def execute_script(request: Request):
 
 @app.post("/executeW")
 async def execute_script(request: Request):
-    data = await request.json()
+    data = await request.json() 
 
     print(data)
     
