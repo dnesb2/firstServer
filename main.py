@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, HTTPException, UploadFile, File
 from fastapi.responses import FileResponse
 import shutil
 import os
+from google import genai
 
 app = FastAPI()
 
@@ -17,7 +18,8 @@ async def execute_script(request: Request):
 
 # using POST for uploading data (pic) which of course you place to send to AI
 @app.post("/executeR")
-async def execute_script(file: UploadFile = File(...)):
+async def execute_script(file: UploadFile = File(...), api: str):
+    client = genai.Client(api_key=api)
     # 1. Name where you want to save the incoming image on Railway
     server_filename = f"received_{file.filename}"
     
@@ -27,11 +29,21 @@ async def execute_script(file: UploadFile = File(...)):
         
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
+     uploaded_File = client.files.upload(file=file.filename)
+
+    response = client.models.generate_content(
+        model="gemini-3.5-flash",
+        contents=[
+            "Explain this pic",
+            uploaded_File
+        ]
+    )
     
     return {
         "message": "Image received successfully!",
         "filename": file.filename,
-        "content_type": file.content_type
+        "content_type": file.content_type,
+        "furtherInfo" : response.text
     }
 
 # Change @app.post to @app.get
