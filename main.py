@@ -29,7 +29,7 @@ async def execute_script(file: UploadFile = File(...)):
         
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
-     uploaded_File = client.files.upload(file=file.filename)
+    uploaded_File = client.files.upload(file=file.filename)
 
     response = client.models.generate_content(
         model="gemini-3.5-flash",
