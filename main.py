@@ -35,11 +35,10 @@ async def execute_script(request: Request):
     return result
 
 @app.post("/executeW")
-async def execute_script(file: UploadFile = File(...), request: Request):
+async def execute_script(file: UploadFile = File(...),payload: str = Form(...)):
     global client
 
-    data = await request.json()
-    print(data)
+   
     # 1. Name where you want to save the incoming image on Railway
     server_filename = f"received_{file.filename}"
     
@@ -49,13 +48,13 @@ async def execute_script(file: UploadFile = File(...), request: Request):
         
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
-    uploaded_File = client.files.upload(file=server_filename)
-    data = await request.json() 
+    #uploaded_File = client.files.upload(file=server_filename)
+    #data = await request.json() 
 
-    print(data)
+   # print(data)
     
     # Put your script's execution logic here
-    result = {"message": "Success", "received": data}
+    result = {"message": "Success", "payload_received": payload}
     
     return result
 
