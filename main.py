@@ -50,15 +50,31 @@ async def execute_script(payload: Annotated[str, Form(...)], file: Annotated[Upl
         
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
-    #uploaded_File = client.files.upload(file=server_filename)
+    data_dict = json.loads(payload)
+    uploaded_File = client.files.upload(file=server_filename)
     #data = await request.json() 
 
    # print(data)
     # Convert your payload string back to a dictionary if needed
-    data_dict = json.loads(payload)
+    
     
     # Put your script's execution logic here
-    result = {"message": "Success", "payload_received": data_dict}
+    #result = {"message": "Success", "payload_received": data_dict}
+
+    response = client.models.generate_content(
+        model="gemini-3.5-flash",
+        contents=[
+            data_dict['Quest'],
+            uploaded_File
+        ]
+    )
+    
+    return {
+        "message": "Image received successfully!",
+        "filename": file.filename,
+        "content_type": file.content_type,
+        "furtherInfo" : response.text
+    }
     
     return result
 
