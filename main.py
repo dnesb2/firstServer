@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, HTTPException, UploadFile, Form, File
 from fastapi.responses import FileResponse
 import shutil
 import os
+from typing import Annotated
 from google import genai
 
 
@@ -35,7 +36,7 @@ async def execute_script(request: Request):
     return result
 
 @app.post("/executeW")
-async def execute_script(file: UploadFile = File(...),payload: str = Form(...)):
+async def execute_script(payload: Annotated[str, Form(...)], file: Annotated[UploadFile, File(...)]):
     global client
 
    
@@ -52,9 +53,11 @@ async def execute_script(file: UploadFile = File(...),payload: str = Form(...)):
     #data = await request.json() 
 
    # print(data)
+    # Convert your payload string back to a dictionary if needed
+    data_dict = json.loads(payload)
     
     # Put your script's execution logic here
-    result = {"message": "Success", "payload_received": payload}
+    result = {"message": "Success", "payload_received": data_dict}
     
     return result
 
