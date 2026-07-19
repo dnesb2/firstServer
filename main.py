@@ -4,6 +4,7 @@ import shutil
 import os
 from typing import Annotated
 from google import genai
+import json
 
 
 # # Fetch the key from Railway's environment variables
