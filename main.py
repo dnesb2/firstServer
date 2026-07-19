@@ -49,7 +49,7 @@ async def execute_script(file: UploadFile = File(...), request: Request):
         
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
-    uploaded_File = client.files.upload(file=server_filename)):
+    uploaded_File = client.files.upload(file=server_filename)
     data = await request.json() 
 
     print(data)
