@@ -93,7 +93,6 @@ async def execute_script(payload: Annotated[str, Form(...)]):
     
     
     # Put your script's execution logic here
-    result = {"mt)
     
     response = client.models.generate_content(
         model="gemini-3.5-flash",
