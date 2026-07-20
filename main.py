@@ -62,7 +62,7 @@ async def execute_script(payload: Annotated[str, Form(...)], file: Annotated[Upl
     #result = {"message": "Success", "payload_received": data_dict}
 
     response = client.models.generate_content(
-        model="gemini-3.5-flash",
+        model=data_dict['model'],
         contents=[
             data_dict['Quest'],
             uploaded_File
@@ -136,6 +136,35 @@ async def execute_script(file: UploadFile = File(...)):
         "furtherInfo" : response.text
     }
 
+@app.post("/executeRR")
+async def execute_script(file: UploadFile = File(...)):
+    global client
+    # 1. Name where you want to save the incoming image on Railway
+    server_filename = f"received_{file.filename}"
+    
+    # 2. Save the incoming file stream to the server's disk
+    with open(server_filename, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    # 3. Your processing logic goes here
+    # (e.g., edit the image, analyze it, etc.)
+    uploaded_File = client.files.upload(file=server_filename)
+
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents=[
+            "Explain this pic",
+            uploaded_File
+        ]
+    )
+    
+    return {
+        "message": "Image received successfully!",
+        "filename": file.filename,
+        "content_type": file.content_type,
+        "furtherInfo" : response.text
+    }
+
 @app.post("/executeA")
 async def execute_script(file: UploadFile = File(...)):
     global client
@@ -152,6 +181,34 @@ async def execute_script(file: UploadFile = File(...)):
 
     response = client.models.generate_content(
         model="gemini-3.5-flash",
+        contents=[
+            "Answer based on audio",
+            uploaded_File
+        ]
+    )
+    
+    return {
+        "message": "Image received successfully!",
+        "filename": file.filename,
+        "content_type": file.content_type,
+        "furtherInfo" : response.text
+    }
+@app.post("/executeAA")
+async def execute_script(file: UploadFile = File(...)):
+    global client
+    # 1. Name where you want to save the incoming image on Railway
+    server_filename = f"received_{file.filename}"
+    
+    # 2. Save the incoming file stream to the server's disk
+    with open(server_filename, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    # 3. Your processing logic goes here
+    # (e.g., edit the image, analyze it, etc.)
+    uploaded_File = client.files.upload(file=server_filename)
+
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
         contents=[
             "Answer based on audio",
             uploaded_File
