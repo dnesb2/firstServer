@@ -78,7 +78,7 @@ async def execute_script(payload: Annotated[str, Form(...)], file: Annotated[Upl
     
     return result
 
-@app.get("/executeQ")
+@app.post("/executeQ")
 async def execute_script(payload: Annotated[str, Form(...)]):
     global client
 
