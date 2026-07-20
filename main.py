@@ -106,8 +106,7 @@ async def execute_script(payload: Annotated[str, Form(...)]):
         "message": "success",
         "furtherInfo" : response.text
     }
-    
-    return result
+
 
 
 # using POST for uploading data (pic) which of course you place to send to AI
