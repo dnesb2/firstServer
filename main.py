@@ -85,7 +85,7 @@ async def execute_script(payload: Annotated[str, Form(...)]):
         
     # 3. Your processing logic goes her
     # (e.g., edit the image, analyze it, etc.)
-    data_dict = json.loads(payload)
+   # data_dict = json.loads(payload)
     #data = await request.json() 
 
    # print(data)
@@ -97,9 +97,7 @@ async def execute_script(payload: Annotated[str, Form(...)]):
 
     response = client.models.generate_content(
         model="gemini-3.5-flash",
-        contents=[
-            data_dict['Quest']
-        ]
+        contents=[payload.Quest]
     )
     
     return {
