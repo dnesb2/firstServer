@@ -32,7 +32,7 @@ async def execute_script(request: Request):
     data = await request.json()  
     
     # Put your script's execution logic here
-    result = {"message": "Success", "received": data}
+    result = {"message": "Success, server is running", "received": data}
     
     return result
 
@@ -73,6 +73,37 @@ async def execute_script(payload: Annotated[str, Form(...)], file: Annotated[Upl
         "message": "Image received successfully!",
         "filename": file.filename,
         "content_type": file.content_type,
+        "furtherInfo" : response.text
+    }
+    
+    return result
+
+@app.post("/executeQ")
+async def execute_script(payload: Annotated[str, Form(...)]):
+    global client
+
+        
+    # 3. Your processing logic goes here
+    # (e.g., edit the image, analyze it, etc.)
+    data_dict = json.loads(payload)
+    #data = await request.json() 
+
+   # print(data)
+    # Convert your payload string back to a dictionary if needed
+    
+    
+    # Put your script's execution logic here
+    #result = {"message": "Success", "payload_received": data_dict}
+
+    response = client.models.generate_content(
+        model="gemini-3.5-flash",
+        contents=[
+            data_dict['Quest']
+        ]
+    )
+    
+    return {
+        "message": "success",
         "furtherInfo" : response.text
     }
     
