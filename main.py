@@ -19,7 +19,7 @@ finalStr = ""
 with open("private.txt", "r") as f:
     for l in f.read():
         if l == '+':
-            finalStr = finalStr + '.'
+            finalStr = finalStr + '.' 
             continue
         else:
             finalStr = finalStr + l
