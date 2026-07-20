@@ -83,7 +83,7 @@ async def execute_script(payload: Annotated[str, Form(...)]):
     global client
 
         
-    # 3. Your processing logic goes here
+    # 3. Your processing logic goes her
     # (e.g., edit the image, analyze it, etc.)
     data_dict = json.loads(payload)
     #data = await request.json() 
