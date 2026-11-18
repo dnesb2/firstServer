@@ -116,13 +116,14 @@ async def execute_script(file: UploadFile = File(...)):
     
     VOLUME_DIR = "/data/uploads"
     os.makedirs(VOLUME_DIR, exist_ok=True)
-    destination = os.path.join(VOLUME_DIR, "report.pdf")
+    destination = os.path.join(VOLUME_DIR, file.filename)
     
     # Move file from temporary container storage to persistent volume
-    shutil.move(file.filename, destination)
+    #shutil.move(file.filename, destination)
     # 2. Save the incoming file stream to the server's disk
     with open(server_filename, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
+        shutil.move(file.filename, destination)
         
         
     return
