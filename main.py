@@ -125,7 +125,7 @@ async def execute_script(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
         
         
-    
+    return
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
     uploaded_File = client.files.upload(file=server_filename)
