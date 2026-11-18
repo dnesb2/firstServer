@@ -123,9 +123,9 @@ async def execute_script(file: UploadFile = File(...)):
     # 2. Save the incoming file stream to the server's disk
     with open(server_filename, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-        shutil.move(file.file, destination)
+        shutil.move(buffer, destination)
         
-        
+    temp_file = "/tmp/report.pdf"
     return
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
