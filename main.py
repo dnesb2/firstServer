@@ -123,7 +123,7 @@ async def execute_script(file: UploadFile = File(...)):
     # 2. Save the incoming file stream to the server's disk
     with open(server_filename, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-        shutil.move(file.filename, destination)
+        shutil.move(file.file, destination)
         
         
     return
