@@ -5,6 +5,7 @@ import os
 from typing import Annotated
 from google import genai
 import json
+import { s3 } from 'bun'
 
 
 # # Fetch the key from Railway's environment variables
@@ -116,7 +117,8 @@ async def execute_script(file: UploadFile = File(...)):
     # 2. Save the incoming file stream to the server's disk
     with open(server_filename, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-        
+    server_filename2 = f"./{server_filename}"
+    await s3.file(server_filename).write(Bun.file(server_filename2));
     # 3. Your processing logic goes here
     # (e.g., edit the image, analyze it, etc.)
     uploaded_File = client.files.upload(file=server_filename)
